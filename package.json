@@ -1,0 +1,11 @@
+{
+  "name": "pwa-sample",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/umamichi/pwa-sample.git",
+  "author": "馬道 允崇 <umamichi@team-lab.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel index.html"
+  }
+}
