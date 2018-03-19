@@ -17,6 +17,14 @@ PWAは、わざわざApple StoreやGoogle Play Storeから**インストール�
 
 ## 導入事例
 
+<img src="https://yt3.ggpht.com/a-/AJLlDp2wcXDpKD1W70aErbFQ1LQJzHC2Vbu6HMb6=s900-mo-c-c0xffffffff-rj-k-no" width="100" alt="trivago">
+
+<img src="http://masapon03.com/wp/wp-content/uploads/2017/02/twitter-bird-light-bgs.png" width="100" alt="TwitterLight">
+
+<img src="https://www.suumocounter.jp/img/top/illust_suumo_01.png" width="100" alt="suumo">
+
+<img src="https://image.recipe.rakuten.co.jp/d-pc/logo/addtohomescreen_icon_192.png" width="100" alt="楽天レシピ">
+
 + Trivago
 https://www.trivago.com
 
@@ -27,14 +35,13 @@ https://mobile.twitter.com
 👉 直帰率20%削減⤵︎
 
 + Wego
-http://suumo.jp
+https://www.wegotravel.jp/
 👉 コンバージョン39%増🔺
 
 + 楽天レシピ
 https://recipe.rakuten.co.jp/
 👉 PVが3.1倍に増加🔺
 👉 1ヶ月後にプッシュ通知を受け取ったユーザーの訪問数が5.3倍に増加🔺
-
 
 + SUUMO
 http://suumo.jp
@@ -81,7 +88,8 @@ Github.com にログインし
 という名前のリポジトリを作り、`index.html` を master branch に push しましょう
 
 
-```html:index.html
+```html
+<!-- index.html -->
 <html>
 <head>
   <title>github pages test</title>
@@ -105,7 +113,8 @@ httpsでアクセス出来ていることに注目してください
 
 index.htmlと同じ階層に manifest.json を作成しましょう
 
-```json:manifest.json
+▼manifest.json
+```json
 {
   "name": "PWA Sample",
   "short_name": "PWA",
@@ -124,13 +133,23 @@ index.htmlと同じ階層に manifest.json を作成しましょう
 }
 ```
 
+ここで指定するホームスクリーン用アイコンもindex.htmlと同じ階層に配置しましょう
+
+今回はサイズの違う2種類です
+
++ アイコン192px
+
++ アイコン
+
+
 ### 3. Service Workerを有効にする
 
 Service Workerは、オフライン体験をサポートするために重要です
 
 index.htmlと同じ階層に配置しましょう
 
-```javascript:service-worker.js
+```javascript
+// service-worker.js
 self.addEventListener('install', function(e) {
   console.log('[ServiceWorker] Install');
 });
@@ -148,7 +167,8 @@ index.htmlをこのように変更しましょう
 さらに、オフラインでアプリケーションが動作することを明確にするために、2種の画像と `a.html` も追加してみましょう
 
 
-```html:index.html
+```html
+<!-- index.html -->
 <html>
 <head>
   <link rel="manifest" href="./manifest.json">
@@ -179,7 +199,8 @@ index.htmlをこのように変更しましょう
 </html>
 ```
 
-```html:a.html
+```html
+<!-- a.html -->
 <html>
 <head>
   <title>Hello PWA. a.html</title>
@@ -210,6 +231,53 @@ index.htmlをこのように変更しましょう
 + 画像2
 [https://umamichi.github.io/pwa-sample/p-chan.svg](https://umamichi.github.io/pwa-sample/p-chan.svg)
 
+
+
+
 すべて、index.htmlと同じ、ルートディレクトリに配置するだけです
 
 あとは、master branch に push しましょう
+
+↓このようなページになればOKです
+
+https://umamichi.github.io/pwa-sample
+
+### 5. PC版 Chromeで確認
+
+PC版 Chromeで以下にアクセスし、Chrome Developerツールを開きましょう
+
+https://あなたのユーザーネーム.github.io
+
+
+...
+
+
+### 6. Androidで確認する
+
+Androidでアクセスすると、`ホームスクリーンに追加`を促すポップが出現します
+
+ちなみに、Googleによると、出現には以下の条件があります
+
+**2 回以上のアクセスがあり、そのアクセスに 5 分以上の間隔がある。**
+
+引用）https://developers.google.com/web/fundamentals/app-install-banners/?hl=ja
+
+ホームスクリーン
+
+機内モードにして、
+
+### 7. iOS SafariでPWAを体験する
+
+## PWAとネイティブアプリの比較
+
+hoge
+
+## まとめ&今後
+
++ スマホネイティブアプリが徐々にPWAに移行するでしょう
+
++ ユーザーにとってPWAはインストールレス、アップデートレスな体験になるので、好まれる
+
++ 開発者にとってもデプロイのたびにApp Storeに申請する必要がないので楽
+
++ 高度なグラフィック処理・大量の計算処理が必要なアプリケーションのみ、ネイティブアプリとして残る
