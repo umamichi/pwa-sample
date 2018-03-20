@@ -1,4 +1,4 @@
-# PWA 入門 〜iOS SafariでPWAを体験するまで〜
+# PWA 入門 〜iOS SafariでPWAを体験するまで〜 2018年3月版
 
 ## What's PWA ?
 
@@ -12,23 +12,16 @@ PWAは、わざわざApple StoreやGoogle Play Storeから**インストール�
 
 ▼このように、Webサイトを直接ホームに追加することでアプリケーション化されます
 
-<img src="add-to-home-screen.gif">
+<img src="https://github.com/umamichi/pwa-sample/blob/master/add-to-home-screen.gif?raw=true">
 
 
 ## 導入事例
 
-<img src="https://yt3.ggpht.com/a-/AJLlDp2wcXDpKD1W70aErbFQ1LQJzHC2Vbu6HMb6=s900-mo-c-c0xffffffff-rj-k-no" width="100" alt="trivago" style="display: inline-block">
-
-<img src="http://masapon03.com/wp/wp-content/uploads/2017/02/twitter-bird-light-bgs.png" width="100" alt="TwitterLight" style="display: inline-block">
-
-<img src="https://www.suumocounter.jp/img/top/illust_suumo_01.png" width="100" alt="suumo" style="display: inline-block">
-
-<img src="https://image.recipe.rakuten.co.jp/d-pc/logo/addtohomescreen_icon_192.png" width="100" alt="楽天レシピ" style="display: inline-block">
+<img src="https://yt3.ggpht.com/a-/AJLlDp2wcXDpKD1W70aErbFQ1LQJzHC2Vbu6HMb6=s900-mo-c-c0xffffffff-rj-k-no" width="100" alt="trivago" /><img src="http://masapon03.com/wp/wp-content/uploads/2017/02/twitter-bird-light-bgs.png" width="100" alt="TwitterLight" /><img src="https://www.suumocounter.jp/img/top/illust_suumo_01.png" width="100" alt="suumo" /><img src="https://image.recipe.rakuten.co.jp/d-pc/logo/addtohomescreen_icon_192.png" width="100" alt="楽天レシピ" style="margin-left: 20px" />
 
 + Trivago
 https://www.trivago.com
-
-
+  
 + Twitter Lite
 https://mobile.twitter.com
 👉 平均PV65%増、ツイート数75%増🔺
@@ -60,7 +53,7 @@ iOSは11.3から対応予定
 **※iOS11.3を先取りインストールしてiOSでPWAテストする方法は下記に書きます**
 
 
-<img src="caniuse.png">
+<img src="https://github.com/umamichi/pwa-sample/blob/master/caniuse.png?raw=true">
 
 
 ## PWA対応させてみる
@@ -83,9 +76,7 @@ SSL証明書の購入が必要で、6千円〜数万円/年程度。
 
 Github.com にログインし
 
-```
-あなたのユーザーネーム.github.io
-```
+`あなたのユーザーネーム.github.io`
 
 という名前のリポジトリを作り、`index.html` を master branch に push しましょう
 
@@ -102,8 +93,7 @@ Github.com にログインし
 </html>
 ```
 
-
-https://あなたのユーザーネーム.github.io
+`https://あなたのユーザーネーム.github.io`
 
 
 にアクセスして、「github pages test」と表示されていたらOKです
@@ -116,6 +106,7 @@ https://あなたのユーザーネーム.github.io
 index.htmlと同じ階層に manifest.json を作成しましょう
 
 ▼manifest.json
+
 ```json
 {
   "name": "PWA Sample",
@@ -150,12 +141,14 @@ Googleによると、**192x192のpngアイコン**が登録されていないと
 
 ▼ 起動時のURLです。PWAとしてアクセスしたことが分かるように、URLにクエリを付与しています
 ここで使用している値は、Google Analytics において意味があるというメリットもあるそうです
+
 ```
   "start_url": "./?utm_source=homescreen",
 ```
 
 
 ▼ display タイプを standalone に設定すると、ウェブアプリでブラウザの UI を非表示にすることができます。
+
 ```
   "display": "standalone"
 ```
@@ -183,9 +176,11 @@ self.addEventListener('fetch', function(event) {});
 
 ### 4. index.html から `manifest.json` `service-worker.js` を呼び出す
 
-
 index.htmlをこのように変更しましょう
-さらに、オフラインでアプリケーションが動作することを明確にするために、2種の画像と `p.html` も追加してみましょう
+
+さらに、オフラインでアプリケーションが動作することを明確にするために
+
+2種の画像と `p.html` も追加してみましょう
 
 
 ```html
@@ -251,7 +246,7 @@ index.htmlをこのように変更しましょう
 + 画像1
 [https://umamichi.github.io/pwa-sample/pwa-logo.svg](https://umamichi.github.io/pwa-sample/pwa-logo.svg)
 
-+ 画像2
++ 画像2 （画像は何でもよいです）
 [https://umamichi.github.io/pwa-sample/p-chan.jpg](https://umamichi.github.io/pwa-sample/p-chan.jpg)
 
 
@@ -260,7 +255,7 @@ index.htmlをこのように変更しましょう
 
 あとは、master branch に push しましょう
 
-https://あなたのユーザーネーム.github.io
+`https://あなたのユーザーネーム.github.io`
 
 にアクセスして、[このようなページ](https://umamichi.github.io/pwa-sample) になればOKです👌
 
@@ -269,9 +264,9 @@ https://あなたのユーザーネーム.github.io
 
 PC版Chromeで以下にアクセスし、Developerツールを開きましょう
 
-https://あなたのユーザーネーム.github.io
+`https://あなたのユーザーネーム.github.io`
 
-<img src="chrome-dev-tool.png" alt="PWA check" />
+<img src="https://github.com/umamichi/pwa-sample/blob/master/chrome-dev-tool.png?raw=true" alt="PWA check" />
 
 
 [Application] パネル -> [Manifest] タブから
@@ -281,14 +276,13 @@ https://あなたのユーザーネーム.github.io
 Webページが、PWAとして追加されるはずです
 
 
-
 ### 6. Androidで確認する
 
 Androidでアクセスすると、`ホームスクリーンに追加`を促すポップが出現します
 
 ちなみに、Googleによると、出現には以下の条件があります
 
-**> 2 回以上のアクセスがあり、そのアクセスに 5 分以上の間隔がある。**
+**※ 2 回以上のアクセスがあり、そのアクセスに 5 分以上の間隔がある。**
 
 ホームスクリーンに追加できたら、起動してみましょう
 
@@ -299,7 +293,7 @@ Androidでアクセスすると、`ホームスクリーンに追加`を促す�
 
 Appleによると、iOS11.3からPWAをサポートします
 
-<img src="ios-11.3.png">
+<img src="https://github.com/umamichi/pwa-sample/blob/master/ios-11.3.png?raw=true">
 
 現状（2018年3月20日）ではまだ11.3はリリースされていませんが、beta版をインストールして試すことはできます
 
@@ -314,7 +308,8 @@ iOSでは`ホームスクリーンに追加`バナーなど、まだ未実装の
 このようにPWAとして起動することが確認できます👇
 
 
-<img src="ios-pwa.gif" style="width: 30%" alt="iOS PWA" />
+<blockquote class="twitter-tweet" data-lang="ja"><p lang="tl" dir="ltr">PWA in iOS Safari <a href="https://twitter.com/hashtag/PWA?src=hash&amp;ref_src=twsrc%5Etfw">#PWA</a> <a href="https://twitter.com/hashtag/iOS?src=hash&amp;ref_src=twsrc%5Etfw">#iOS</a> <a href="https://twitter.com/hashtag/Safari?src=hash&amp;ref_src=twsrc%5Etfw">#Safari</a> <a href="https://t.co/doNydI7Bw5">pic.twitter.com/doNydI7Bw5</a></p>&mdash; umauma (@umamichim) <a href="https://twitter.com/umamichim/status/976076275579109377?ref_src=twsrc%5Etfw">2018年3月20日</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 機内モード、つまりオフラインでも動作していることに注目してください
@@ -323,9 +318,8 @@ iOSでは`ホームスクリーンに追加`バナーなど、まだ未実装の
 
 ## PWAとネイティブアプリの比較
 
-
 | | PWA | ネイティブアプリ |
-| -- | -- | -- |
+| -------- | -------- | ----- |
 | 速度 | 少し遅め | 早め | 
 | インストール | ブラウザからワンタップ | Storeから検索が必要 | 
 | 開発コスト | 低 | 高 | 
@@ -335,6 +329,7 @@ iOSでは`ホームスクリーンに追加`バナーなど、まだ未実装の
 | push通知 | ○ | ○ | 
 | iOS, Android | ワンソースで完結 | OSごとに開発が必要 | 
 
+
 PWAの大きなメリットの一つとして、インストールとStore申請の手間が省かれることがあります
 
 また、1ソースで複数のプラットフォームに対応でき、開発コストが少なくて済みます
@@ -342,17 +337,14 @@ PWAの大きなメリットの一つとして、インストールとStore申請
 リリースタイミングも通常WEBサイトと同様、開発者の任意のタイミングで行えるので、開発者とユーザー両方にとって良いことばかりです🤗
 
 
-
 ## まとめ＆今後
 
 + ネイティブアプリは徐々にPWAに移行するでしょう
-
-	（iOS11.3が今春リリースされるので、移行はさらに加速されるでしょう）
+（iOS11.3が今春リリースされるので、移行はさらに加速されるでしょう）
 
 + ユーザーにとっても、PWA体験はネイティブアプリより好まれるでしょう
 
 + 高度なグラフィック処理・大量の計算処理が必要なアプリケーションのみ、ネイティブアプリとして残るでしょう
-
 
 
 ## 参考
