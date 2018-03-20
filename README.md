@@ -1,4 +1,4 @@
-# PWA先取り iOS SafariでPWAを試す
+# PWA 入門 〜iOS SafariでPWAを体験するまで〜
 
 ## What's PWA ?
 
@@ -17,13 +17,13 @@ PWAは、わざわざApple StoreやGoogle Play Storeから**インストール�
 
 ## 導入事例
 
-<img src="https://yt3.ggpht.com/a-/AJLlDp2wcXDpKD1W70aErbFQ1LQJzHC2Vbu6HMb6=s900-mo-c-c0xffffffff-rj-k-no" width="100" alt="trivago">
+<img src="https://yt3.ggpht.com/a-/AJLlDp2wcXDpKD1W70aErbFQ1LQJzHC2Vbu6HMb6=s900-mo-c-c0xffffffff-rj-k-no" width="100" alt="trivago" style="display: inline-block">
 
-<img src="http://masapon03.com/wp/wp-content/uploads/2017/02/twitter-bird-light-bgs.png" width="100" alt="TwitterLight">
+<img src="http://masapon03.com/wp/wp-content/uploads/2017/02/twitter-bird-light-bgs.png" width="100" alt="TwitterLight" style="display: inline-block">
 
-<img src="https://www.suumocounter.jp/img/top/illust_suumo_01.png" width="100" alt="suumo">
+<img src="https://www.suumocounter.jp/img/top/illust_suumo_01.png" width="100" alt="suumo" style="display: inline-block">
 
-<img src="https://image.recipe.rakuten.co.jp/d-pc/logo/addtohomescreen_icon_192.png" width="100" alt="楽天レシピ">
+<img src="https://image.recipe.rakuten.co.jp/d-pc/logo/addtohomescreen_icon_192.png" width="100" alt="楽天レシピ" style="display: inline-block">
 
 + Trivago
 https://www.trivago.com
@@ -120,11 +120,11 @@ index.htmlと同じ階層に manifest.json を作成しましょう
   "short_name": "PWA",
   "background_color": "#fc980c",
   "icons": [{
-      "src": "img/icon.png",
+      "src": "./icon-256.png",
       "sizes": "256x256",
       "type": "image/png"
     },{
-      "src": "img/icon-192.png",
+      "src": "./icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     }],
@@ -137,9 +137,25 @@ index.htmlと同じ階層に manifest.json を作成しましょう
 
 今回はサイズの違う2種類です
 
-+ アイコン192px
+[https://umamichi.github.io/pwa-sample/icon-256.png](https://umamichi.github.io/pwa-sample/icon-256.png)
 
-+ アイコン
+[https://umamichi.github.io/pwa-sample/icon-192.png](https://umamichi.github.io/pwa-sample/icon-192.png)
+
+Googleによると、**192x192のpngアイコン**が登録されていないと、`ホーム画面に追加`バナーが表示されないので注意しましょう
+
+
+▼ 起動時のURLです。PWAとしてアクセスしたことが分かるように、URLにクエリを付与しています
+ここで使用している値は、Google Analytics において意味があるというメリットもあるそうです
+```
+  "start_url": "./?utm_source=homescreen",
+```
+
+
+▼ display タイプを standalone に設定すると、ウェブアプリでブラウザの UI を非表示にすることができます。
+```
+  "display": "standalone"
+```
+
 
 
 ### 3. Service Workerを有効にする
@@ -161,10 +177,11 @@ self.addEventListener('activate', function(e) {
 self.addEventListener('fetch', function(event) {});
 ```
 
-### 4. index.html から呼び出す
+### 4. index.html から `manifest.json` `service-worker.js` を呼び出す
+
 
 index.htmlをこのように変更しましょう
-さらに、オフラインでアプリケーションが動作することを明確にするために、2種の画像と `a.html` も追加してみましょう
+さらに、オフラインでアプリケーションが動作することを明確にするために、2種の画像と `p.html` も追加してみましょう
 
 
 ```html
@@ -184,7 +201,7 @@ index.htmlをこのように変更しましょう
       font-size: 40px;
       vertical-align: middle;
     }
-    .logo {
+    .image {
       width: 80%; 
       margin: auto;
       display: block;
@@ -193,24 +210,24 @@ index.htmlをこのように変更しましょう
 </head>
 <body>
   <h1>Hello PWA.</h1>
-  <img src="./pwa-logo.svg" alt="PWA logo" class="logo" />
-  <a href="a.html">a.html</a>
+  <img src="./pwa-logo.svg" alt="PWA logo" class="image" />
+  <a href="p.html">p.html</a>
 </body>
 </html>
 ```
 
 ```html
-<!-- a.html -->
+<!-- p.html -->
 <html>
 <head>
-  <title>Hello PWA. a.html</title>
+  <title>Hello PWA. p.html</title>
   <style>
     body {
       text-align:center;
       font-size: 40px;
       vertical-align: middle;
     }
-    .logo {
+    .image {
       width: 80%; 
       margin: auto;
       display: block;
@@ -218,8 +235,8 @@ index.htmlをこのように変更しましょう
   </style>
 </head>
 <body>
-  <h1>a.html</h1>
-  <img src="./p-chan.png" alt="p-chan" class="logo" />
+  <h1>p.html</h1>
+  <img src="./p-chan.jpg" alt="p-chan" class="image" />
   <a href="index.html">index.html</a>
 </body>
 </html>
@@ -229,8 +246,7 @@ index.htmlをこのように変更しましょう
 [https://umamichi.github.io/pwa-sample/pwa-logo.svg](https://umamichi.github.io/pwa-sample/pwa-logo.svg)
 
 + 画像2
-[https://umamichi.github.io/pwa-sample/p-chan.svg](https://umamichi.github.io/pwa-sample/p-chan.svg)
-
+[https://umamichi.github.io/pwa-sample/p-chan.jpg](https://umamichi.github.io/pwa-sample/p-chan.jpg)
 
 
 
@@ -242,14 +258,21 @@ index.htmlをこのように変更しましょう
 
 https://umamichi.github.io/pwa-sample
 
-### 5. PC版 Chromeで確認
+### 5. PC版Chromeで確認する
 
-PC版 Chromeで以下にアクセスし、Chrome Developerツールを開きましょう
+PC版Chromeで以下にアクセスし、Developerツールを開きましょう
 
 https://あなたのユーザーネーム.github.io
 
+<img src="chrome-dev-tool.png" alt="PWA check" />
 
-...
+
+[Application] パネル -> [Manifest] タブから
+
+`Add to homescreen` をクリックしましょう
+
+PC版ChromeにWebページが、PWAとして追加されるはずです
+
 
 
 ### 6. Androidで確認する
@@ -258,26 +281,77 @@ Androidでアクセスすると、`ホームスクリーンに追加`を促す�
 
 ちなみに、Googleによると、出現には以下の条件があります
 
-**2 回以上のアクセスがあり、そのアクセスに 5 分以上の間隔がある。**
+**> 2 回以上のアクセスがあり、そのアクセスに 5 分以上の間隔がある。**
 
-引用）https://developers.google.com/web/fundamentals/app-install-banners/?hl=ja
+ホームスクリーンに追加できたら、起動してみましょう
 
-ホームスクリーン
+トップレベルの全画面表示でWebページが表示されたはずです
 
-機内モードにして、
 
 ### 7. iOS SafariでPWAを体験する
 
+Appleによると、iOS11.3からPWAをサポートします
+
+<img src="ios-11.3.png">
+
+現状（2018年3月20日）ではまだ11.3はリリースされていませんが、beta版をインストールして試すことはできます
+
+https://beta.apple.com/sp/betaprogram/
+
+こちらから登録して、iPhoneにインストールしてみましょう
+
+**※iOSアップグレードの前にバックアップをとっておくことをお勧めします**
+
+iOSでは`ホームスクリーンに追加`ポップなど、まだ未実装の部分もありますが、
+
+このようにPWAとして起動することが確認できます👇
+
+<img src="ios-pwa.gif" style="width: 30%" alt="iOS PWA" />
+
+
+### 8. オフラインで動作することの確認 
+
+
+さきほどホームに追加したPWAを機内モードで起動してみましょう
+
+オフラインでページ遷移、画像の表示がされるはずです
+
+このようにPWAはオフライン環境でもコンテンツの表示が可能です
+
+
 ## PWAとネイティブアプリの比較
 
-hoge
+
+| | PWA | ネイティブアプリ |
+| -- | -- | -- |
+| 速度 | 少し遅め | 早め | 
+| インストール | ブラウザからワンタップ | Storeから検索が必要 | 
+| 開発コスト | 低 | 高 | 
+| リリースのタイミング | developerの任意のタイミング | Store申請＆ユーザーが手動で行う | 
+| オフラインで動作 | ○ | ○ | 
+| ハードウェアアクセス | △ | ○ | 
+| push通知 | ○ | ○ | 
+| iOS, Android | ワンソースで完結 | OSごとに開発が必要 | 
+
+PWAの一番大きなメリットは、インストールとStore申請の手間が省かれることです
+
+また、1ソースで複数のプラットフォームに対応でき、開発コストが少なくて済みます
+
+リリースタイミングも通常WEBサイトと同様、開発者の任意のタイミングで行えるので、開発者とユーザー両方にとって良いことばかり🤗
+
+
 
 ## まとめ&今後
 
-+ スマホネイティブアプリが徐々にPWAに移行するでしょう
++ ネイティブアプリは徐々にPWAに移行するでしょう
 
-+ ユーザーにとってPWAはインストールレス、アップデートレスな体験になるので、好まれる
+	（iOS11.3が今春リリースされるので、移行はさらに加速されるでしょう）
 
-+ 開発者にとってもデプロイのたびにApp Storeに申請する必要がないので楽
++ ユーザーにとっても、PWAはインストールレス・アップデートレスなので、ネイティブアプリより好まれるでしょう
 
-+ 高度なグラフィック処理・大量の計算処理が必要なアプリケーションのみ、ネイティブアプリとして残る
++ 高度なグラフィック処理・大量の計算処理が必要なアプリケーションのみ、ネイティブアプリとして残るでしょう
+
+
+## 参考
+
+https://developers.google.com/web/fundamentals/app-install-banners/?hl=ja
