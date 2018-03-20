@@ -75,7 +75,9 @@ iOSは11.3から対応予定
 
 SSL証明書の購入が必要で、6千円〜数万円/年程度。
 
-ただし、無料でSSL証明書を発行できる [Let's Encrypt](https://letsencrypt.jp/) というものもあり、さくらサーバーやロリポップと連携してお手軽にHTTPS化できるようになってきています
+ただし、無料でSSL証明書を発行できる [Let's Encrypt](https://letsencrypt.jp/) というものもあり、
+
+さくらサーバーやロリポップと連携してお手軽にHTTPS化できるようになってきています
 
 今回は、割愛するためにすでにHTTPS化されている、Github Pages（github.io）を使います
 
@@ -106,7 +108,7 @@ https://あなたのユーザーネーム.github.io
 
 にアクセスして、「github pages test」と表示されていたらOKです
 
-httpsでアクセス出来ていることに注目してください
+**https**でアクセス出来ていることに注目してください
 
 
 ### 2. manifest.json設置
@@ -141,7 +143,9 @@ index.htmlと同じ階層に manifest.json を作成しましょう
 
 [https://umamichi.github.io/pwa-sample/icon-192.png](https://umamichi.github.io/pwa-sample/icon-192.png)
 
-Googleによると、**192x192のpngアイコン**が登録されていないと、`ホーム画面に追加`バナーが表示されないので注意しましょう
+Googleによると、**192x192のpngアイコン**が登録されていないと、
+
+`ホーム画面に追加`バナーが表示されないので注意しましょう
 
 
 ▼ 起動時のURLです。PWAとしてアクセスしたことが分かるように、URLにクエリを付与しています
@@ -155,7 +159,6 @@ Googleによると、**192x192のpngアイコン**が登録されていないと
 ```
   "display": "standalone"
 ```
-
 
 
 ### 3. Service Workerを有効にする
@@ -174,6 +177,7 @@ self.addEventListener('activate', function(e) {
   console.log('[ServiceWorker] Activate');
 });
 
+// 現状では、この処理を書かないとService Workerが有効と判定されないようです
 self.addEventListener('fetch', function(event) {});
 ```
 
@@ -188,8 +192,10 @@ index.htmlをこのように変更しましょう
 <!-- index.html -->
 <html>
 <head>
+  <!-- manifest.jsonを呼び出しています -->
   <link rel="manifest" href="./manifest.json">
   <script>
+    // service workerが有効なら、service-worker.js を登録します
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js').then(function() { console.log('Service Worker Registered'); });
    }
@@ -254,9 +260,10 @@ index.htmlをこのように変更しましょう
 
 あとは、master branch に push しましょう
 
-↓このようなページになればOKです
+https://あなたのユーザーネーム.github.io
 
-https://umamichi.github.io/pwa-sample
+にアクセスして、[このようなページ](https://umamichi.github.io/pwa-sample) になればOKです👌
+
 
 ### 5. PC版Chromeで確認する
 
@@ -271,7 +278,7 @@ https://あなたのユーザーネーム.github.io
 
 `Add to homescreen` をクリックしましょう
 
-PC版ChromeにWebページが、PWAとして追加されるはずです
+Webページが、PWAとして追加されるはずです
 
 
 
@@ -302,21 +309,16 @@ https://beta.apple.com/sp/betaprogram/
 
 **※iOSアップグレードの前にバックアップをとっておくことをお勧めします**
 
-iOSでは`ホームスクリーンに追加`ポップなど、まだ未実装の部分もありますが、
+iOSでは`ホームスクリーンに追加`バナーなど、まだ未実装の部分もありますが、
 
 このようにPWAとして起動することが確認できます👇
+
 
 <img src="ios-pwa.gif" style="width: 30%" alt="iOS PWA" />
 
 
-### 8. オフラインで動作することの確認 
+機内モード、つまりオフラインでも動作していることに注目してください
 
-
-さきほどホームに追加したPWAを機内モードで起動してみましょう
-
-オフラインでページ遷移、画像の表示がされるはずです
-
-このようにPWAはオフライン環境でもコンテンツの表示が可能です
 
 
 ## PWAとネイティブアプリの比較
@@ -333,25 +335,28 @@ iOSでは`ホームスクリーンに追加`ポップなど、まだ未実装の
 | push通知 | ○ | ○ | 
 | iOS, Android | ワンソースで完結 | OSごとに開発が必要 | 
 
-PWAの一番大きなメリットは、インストールとStore申請の手間が省かれることです
+PWAの大きなメリットの一つとして、インストールとStore申請の手間が省かれることがあります
 
 また、1ソースで複数のプラットフォームに対応でき、開発コストが少なくて済みます
 
-リリースタイミングも通常WEBサイトと同様、開発者の任意のタイミングで行えるので、開発者とユーザー両方にとって良いことばかり🤗
+リリースタイミングも通常WEBサイトと同様、開発者の任意のタイミングで行えるので、開発者とユーザー両方にとって良いことばかりです🤗
 
 
 
-## まとめ&今後
+## まとめ＆今後
 
 + ネイティブアプリは徐々にPWAに移行するでしょう
 
 	（iOS11.3が今春リリースされるので、移行はさらに加速されるでしょう）
 
-+ ユーザーにとっても、PWAはインストールレス・アップデートレスなので、ネイティブアプリより好まれるでしょう
++ ユーザーにとっても、PWA体験はネイティブアプリより好まれるでしょう
 
 + 高度なグラフィック処理・大量の計算処理が必要なアプリケーションのみ、ネイティブアプリとして残るでしょう
 
 
+
 ## 参考
+
+https://qiita.com/j16a/items/d3f7f7c3bb283bb20f23
 
 https://developers.google.com/web/fundamentals/app-install-banners/?hl=ja
